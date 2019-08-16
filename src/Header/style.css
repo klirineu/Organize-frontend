@@ -1,0 +1,11 @@
+.header {
+    background: orange;
+    font-style: italic;
+    font-size: 30px;
+    height: 80px;
+    letter-spacing: 2px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

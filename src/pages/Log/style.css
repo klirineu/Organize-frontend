@@ -1,0 +1,49 @@
+.log {
+    text-align: center;
+    line-height: 50px;
+    padding: 10px;
+    border-radius: 20px;
+    height: 190px;
+    width: 220px;
+    background: orange;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.log input {
+    border-style: none;
+    border-radius: 20px;
+    padding: 8px 0;
+    color: orange;
+    text-align: center;
+}
+
+.log button {
+    border-radius: 5px;
+    background-color: white;
+    color: orange;
+    border: 2px solid orange;
+    padding: 8px;
+    font-size: 20px;
+    transition-duration: 0.4s; 
+}
+
+.log button:hover {
+    cursor: pointer;
+    background-color: orange;
+    color: white;
+}
+
+h2 {
+    font-size: 25px;
+    color: white;
+}
+
+
+div {
+    position: relative;
+    height: 200px;
+}
+
