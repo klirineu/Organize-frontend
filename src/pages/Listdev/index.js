@@ -48,7 +48,7 @@ export default class Devlist extends Component {
   }
 
   handleSubmit = e => {
-    //e.preventDefault();
+    e.preventDefault();
 
     const devedor = {
       nome: this.state.newNome,
