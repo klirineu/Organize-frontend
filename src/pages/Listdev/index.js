@@ -79,7 +79,7 @@ export default class Devlist extends Component {
   render() {
     return (
       <div className="container-main">
-        <form className="formulario" onSubmit={this.handleSubmit}>
+        <form className="formulario" onSubmit={this.handleSubmit} method="post">
           <input
             type="text"
             placeholder="Nome:"
