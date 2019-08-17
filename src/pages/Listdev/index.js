@@ -106,7 +106,11 @@ export default class Devlist extends Component {
           </button>
         </form>
 
-        <form className="container-list" onSubmit={this.handleDelete}>
+        <form
+          className="container-list"
+          onSubmit={this.handleDelete}
+          method="get"
+        >
           <ul>
             {this.state.devedores.map(devedor => (
               <li key={devedor._id}>
