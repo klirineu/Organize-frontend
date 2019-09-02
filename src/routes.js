@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-
 import { isAuthenticated } from "./auth/index";
 import Log from "./pages/Log/index";
 import List from "./pages/Listdev/index";

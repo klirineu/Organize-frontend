@@ -3,12 +3,12 @@
   max-width: 1400px;
   text-align: center;
   background: orange;
-  text-align: center;
   margin: 0 auto;
 }
 .container-list {
   text-align: center;
   margin: 0 auto;
+
 }
 
 .container-list ul li {
@@ -39,7 +39,12 @@
 }
 
 .formulario {
-  padding: 10px;
+  padding-top: 50px; 
+  margin-bottom: 80px; 
+}
+
+.formulario h2 {
+  margin: 10px;
 }
 
 .formulario input {
