@@ -5,7 +5,6 @@ import "./index.css";
 
 import Routes from "./routes";
 import Header from "./Header/index";
-import { store, persistor } from "./store/index";
 
 export default function App() {
   return (

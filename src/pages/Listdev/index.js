@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import api from "../../services/api";
 import { Link } from "react-router-dom";
+import Form from "../../components/formcadastro";
 
 import "./style.css";
 
-import * as devActions from "../../store/actions/Devquery";
-
-function Devlist({ dev, dispatch }) {
+function Devlist() {
   const [nomes, setnomes] = useState([]);
-  const [newnome, setnewnome] = useState("");
-  const [newVdiv, setnewVdiv] = useState("");
-  const [newparc, setnewparc] = useState("");
 
   useEffect(() => {
     async function handlenomes() {
@@ -28,58 +23,10 @@ function Devlist({ dev, dispatch }) {
     handlenomes();
   }, []);
 
-  function handleclick(e) {
-    e.preventDefault();
-
-    if (newnome === "" || newVdiv === "" || newparc === "") {
-      alert("preencha os campos");
-    } else {
-      const devedor = {
-        nome: newnome,
-        Vdiv: newVdiv,
-        parc: newparc
-      };
-
-      api
-        .post("/devedores", { devedor })
-        .then(res => {
-          console.log(res);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
-  }
-
   return (
     <div className="container-main">
-      <form className="formulario">
-        <h2>Cadastrar novo devedor</h2>
-        <input
-          type="text"
-          name="newnome"
-          value={newnome}
-          onChange={e => setnewnome(e.target.value)}
-          placeholder="Nome:"
-        />
-        <input
-          type="Number"
-          name="newVdiv"
-          value={newVdiv}
-          onChange={e => setnewVdiv(e.target.value)}
-          placeholder="Valor a pagar:"
-        />
-        <input
-          type="Number"
-          name="newparc"
-          value={newparc}
-          onChange={e => setnewparc(e.target.value)}
-          placeholder="Parcelas:"
-        />
-        <button className="btn" type="submit" onClick={handleclick}>
-          Enviar
-        </button>
-      </form>
+      <h2 className="h2l">Cadastras novo devedor</h2>
+      <Form />
 
       <div className="container-list">
         <ul>
@@ -99,4 +46,4 @@ function Devlist({ dev, dispatch }) {
   );
 }
 
-export default connect(state => ({ dev: state.nomedev.dev }))(Devlist);
+export default Devlist;
