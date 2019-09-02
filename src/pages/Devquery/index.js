@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 
-//import { useSelector } from "react-redux";
-
 import "./style.css";
 
 export default function Devquery() {
-  // const dev = useSelector(state => state.nomedev.dev);
-  const dev = localStorage.dev2;
+  const dev = localStorage.dev;
   const [devedores, setDevedores] = useState([]);
   useEffect(() => {
     function devQuery() {

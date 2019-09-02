@@ -87,12 +87,7 @@ function Devlist({ dev, dispatch }) {
             <li key={nome}>
               <strong>Nome: {nome}</strong>
               <Link to="/query">
-                <button
-                  onClick={
-                    (() => dispatch(devActions.devQuery(nome)),
-                    localStorage.setItem("dev2", nome))
-                  }
-                >
+                <button onClick={() => localStorage.setItem("dev", nome)}>
                   Listar
                 </button>
               </Link>
