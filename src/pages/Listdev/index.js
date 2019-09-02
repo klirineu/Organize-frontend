@@ -1,70 +1,43 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import api from "../../services/api";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./style.css";
 
-export default class Devlist extends Component {
-  state = {
-    nomes: [],
-    devedores: [],
-    devedor: {
-      newNome: "",
-      newVdiv: "",
-      newParc: ""
-    },
-    id: "",
-    dev: ""
-  };
+import * as devActions from "../../store/actions/Devquery";
 
-  componentDidMount() {
-    this.loadDevedores();
-  }
+function Devlist({ dev, dispatch }) {
+  const [nomes, setnomes] = useState([]);
+  const [newnome, setnewnome] = useState("");
+  const [newVdiv, setnewVdiv] = useState("");
+  const [newparc, setnewparc] = useState("");
 
-  loadDevedores = async props => {
-    await api
-      .get("/devedores")
-      .then(response => {
-        const nomes = response.data;
-        this.setState({ nomes });
-      })
+  useEffect(() => {
+    async function handlenomes() {
+      await api
+        .get("/devedores")
+        .then(res => {
+          setnomes(res.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
 
-      .catch(function(error) {
-        console.log(error);
+    handlenomes();
+  }, []);
 
-        throw error;
-      });
-  };
-
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  removeDev(devedor) {
-    const id = devedor._id;
-    this.setState({ id: id });
-    console.log(this.state.id);
-  }
-
-  listDev(nome) {
-    const dev = nome;
-    this.setState({ dev: dev });
-  }
-
-  handleSubmit = e => {
+  function handleclick(e) {
     e.preventDefault();
 
-    if (
-      this.state.newNome === undefined ||
-      this.state.newVdiv === undefined ||
-      this.state.newParc === undefined
-    ) {
+    if (newnome === "" || newVdiv === "" || newparc === "") {
       alert("preencha os campos");
     } else {
       const devedor = {
-        nome: this.state.newNome,
-        Vdiv: this.state.newVdiv,
-        parc: this.state.newParc
+        nome: newnome,
+        Vdiv: newVdiv,
+        parc: newparc
       };
 
       api
@@ -74,74 +47,61 @@ export default class Devlist extends Component {
         })
         .catch(error => {
           console.log(error);
-
-          throw error;
         });
     }
+  }
 
-    //ate aki ok
-  };
+  return (
+    <div className="container-main">
+      <form className="formulario">
+        <h2>Cadastrar novo devedor</h2>
+        <input
+          type="text"
+          name="newnome"
+          value={newnome}
+          onChange={e => setnewnome(e.target.value)}
+          placeholder="Nome:"
+        />
+        <input
+          type="Number"
+          name="newVdiv"
+          value={newVdiv}
+          onChange={e => setnewVdiv(e.target.value)}
+          placeholder="Valor a pagar:"
+        />
+        <input
+          type="Number"
+          name="newparc"
+          value={newparc}
+          onChange={e => setnewparc(e.target.value)}
+          placeholder="Parcelas:"
+        />
+        <button className="btn" type="submit" onClick={handleclick}>
+          Enviar
+        </button>
+      </form>
 
-  handleDev = e => {
-    e.preventDefault();
-    api
-      .get(`/devedores/order/${this.state.dev}`)
-      .then(res => {
-        const devedores = res.data;
-        this.setState({ devedores: devedores });
-        console.log(devedores);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    console.log(this.state.dev);
-  };
-
-  render() {
-    let id = 0;
-    return (
-      <div className="container-main">
-        <form className="formulario" onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            placeholder="Nome:"
-            name="newNome"
-            onChange={this.handleChange}
-            value={this.state.newNome}
-          />
-          <input
-            type="Number"
-            placeholder="Valor a pagar:"
-            name="newVdiv"
-            onChange={this.handleChange}
-            value={this.state.newVdiv}
-          />
-          <input
-            type="Number"
-            name="newParc"
-            placeholder="Parcelas:"
-            onChange={this.handleChange}
-            value={this.state.newParc}
-          />
-          <button className="btn" type="submit">
-            Enviar
-          </button>
-        </form>
-
-        <form className="container-list" onSubmit={this.handleDev}>
-          <ul>
-            {this.state.nomes.map(nome => (
-              <li key={id++}>
-                <strong>Nome: {nome}</strong>
-                <button type="submit" onClick={() => this.listDev(nome)}>
+      <div className="container-list">
+        <ul>
+          {nomes.map(nome => (
+            <li key={nome}>
+              <strong>Nome: {nome}</strong>
+              <Link to="/query">
+                <button
+                  onClick={
+                    (() => dispatch(devActions.devQuery(nome)),
+                    localStorage.setItem("dev2", nome))
+                  }
+                >
                   Listar
                 </button>
-              </li>
-            ))}
-          </ul>
-        </form>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default connect(state => ({ dev: state.nomedev.dev }))(Devlist);
