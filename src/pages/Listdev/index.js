@@ -5,13 +5,16 @@ import Form from "../../components/formcadastro";
 
 import "./style.css";
 
-function Devlist() {
+function Devlist(props) {
   const [nomes, setnomes] = useState([]);
 
   useEffect(() => {
     async function handlenomes() {
+      const token = localStorage.getItem("token");
+      const Auth = `Bearer ${token}`;
+
       await api
-        .get("/devedores")
+        .get("/devedores", { headers: { Authorization: Auth } })
         .then(res => {
           setnomes(res.data);
         })
@@ -23,12 +26,20 @@ function Devlist() {
     handlenomes();
   }, []);
 
+  function deletetoken() {
+    localStorage.removeItem("token");
+    props.history.push("/");
+  }
+
   return (
     <div className="container-main">
       <h2 className="h2l">Cadastras novo devedor</h2>
       <Form />
 
       <div className="container-list">
+        <button className="botao-sair" value="submit" onClick={deletetoken}>
+          Sair
+        </button>
         <ul>
           {nomes.map(nome => (
             <li key={nome}>

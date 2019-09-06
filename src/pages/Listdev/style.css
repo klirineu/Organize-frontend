@@ -45,6 +45,19 @@
   cursor: pointer;
 }
 
+.botao-sair {
+  position: absolute;
+  top: -200px;
+  left: 50px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-style: none;
+  border-radius: 4px;
+  background: white;
+  color: orange;
+  cursor: pointer;
+}
+
 .btn {
   padding: 10px;
   margin-left: 5px;

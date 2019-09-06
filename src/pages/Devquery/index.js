@@ -8,14 +8,19 @@ import "./style.css";
 export default function Devquery() {
   const dev = localStorage.dev;
   const [devedores, setDevedores] = useState([]);
+
+  const token = localStorage.getItem("token");
+  const Auth = `Bearer ${token}`;
+
   useEffect(() => {
     function devQuery() {
-      api.get(`/devedores/order/${dev}`).then(res => {
-        const data = res.data;
-        const devedores = data;
-        setDevedores(devedores);
-        console.log(res);
-      });
+      api
+        .get(`/devedores/order/${dev}`, { headers: { Authorization: Auth } })
+        .then(res => {
+          const data = res.data;
+          const devedores = data;
+          setDevedores(devedores);
+        });
     }
 
     devQuery();
@@ -25,12 +30,29 @@ export default function Devquery() {
 
   function deletDev(id) {
     api
-      .delete(`/devedores/${id}`)
+      .delete(`/devedores/${id}`, { headers: { Authorization: Auth } })
 
       .catch(error => {
         console.log(error);
       });
   }
+
+  /*
+    <input
+        type="checkbox"
+        id="detalhesdev"
+        onClick={() => {
+          if (detalhesdev.checked) {
+            console.log("mostrar");
+          } else {
+            console.log("esconder");
+          }
+      }}
+    />
+        mostrar detalhes
+  */
+
+  //var detalhesdev = document.getElementById("detalhesdev");
 
   return (
     <div className="container-main-dev">
@@ -46,7 +68,6 @@ export default function Devquery() {
             Voltar
           </button>
         </Link>
-
         <ul>
           {devedores.map(devedor => (
             <li key={devedor._id}>

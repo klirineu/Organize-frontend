@@ -9,9 +9,11 @@ export default function Form() {
   const [newparc, setnewparc] = useState("");
 
   function handleclick(e) {
-    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const Auth = `Bearer ${token}`;
 
     if (newnome === "" || newVdiv === "" || newparc === "") {
+      e.preventDefault();
       alert("preencha os campos");
     } else {
       const devedor = {
@@ -21,7 +23,7 @@ export default function Form() {
       };
 
       api
-        .post("/devedores", { devedor })
+        .post("/devedores", { devedor }, { headers: { Authorization: Auth } })
         .then(res => {
           console.log(res);
         })

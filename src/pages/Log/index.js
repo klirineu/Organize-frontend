@@ -1,18 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
-import { Link } from "react-router-dom";
+import api from "../../services/api";
 
 export default function Log(props) {
+  const [nome, setnome] = useState("");
+  const [senha, setsenha] = useState("");
+
+  function handleclick(e) {
+    if (nome === "" || senha === "") {
+      return alert("Login inválido");
+    }
+
+    api
+      .post("/authenticate", { nome, senha })
+      .then(res => {
+        localStorage.setItem("token", res.data.token);
+        props.history.push("/list");
+
+        return;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   return (
-    <form className="log">
+    <div className="log">
       <h2>Login</h2>
-      <input id="user" type="text" placeholder="User name:" />
-      <input id="pass" type="password" placeholder="User password:" />
-      <Link to="/list">
-        <button id="btn" >
-          Log in
-        </button>
-      </Link>
-    </form>
+      <input
+        name="nome"
+        value={nome}
+        onChange={e => setnome(e.target.value)}
+        id="user"
+        type="text"
+        placeholder="User name:"
+      />
+      <input
+        name="senha"
+        value={senha}
+        onChange={e => setsenha(e.target.value)}
+        id="pass"
+        type="password"
+        placeholder="User password:"
+      />
+
+      <button id="btn" onClick={handleclick}>
+        Log in
+      </button>
+    </div>
   );
 }

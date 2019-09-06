@@ -1,22 +1,27 @@
-export const isAuthenticated = () => {
-  /*
-  var userAdm = ["klirineu"];
-  var passAdm = ["klirineu123"];
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
 
-  var user = document.getElementById("user").value;
-  var pass = document.getElementById("pass").value;
-
-  if (userAdm.indexOf(user) > -1 && passAdm.indexOf(pass) > -1) {
+const isAuthenticated = () => {
+  if (localStorage.getItem("token") !== null) {
     return true;
-  } else if (user === "" && pass === "") {
-    alert("Digite seu usuario e senha");
-  } else if (user === "") {
-    alert("Digite seu usuario");
-  } else if (pass === "") {
-    alert("Digite sua senha");
-  } else if (userAdm.indexOf(user) === -1 && passAdm.indexOf(pass) === -1) {
-    alert("Usuario ou senha invalidos");
   }
-  */
-  return true;
+
+  return false;
 };
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{ pathname: "/", state: { message: "Usuário não autorizado" } }}
+        />
+      )
+    }
+  />
+);
+
+export default PrivateRoute;
