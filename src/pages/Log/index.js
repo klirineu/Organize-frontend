@@ -20,7 +20,7 @@ export default function Log(props) {
         return;
       })
       .catch(err => {
-        console.log(err);
+        alert("Usuário invalido");
       });
   }
 
