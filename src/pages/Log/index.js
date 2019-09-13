@@ -26,8 +26,9 @@ export default function Log(props) {
 
   return (
     <div className="log">
-      <h2>Login</h2>
+      <h2 className="log0">Login</h2>
       <input
+        className="log1"
         name="nome"
         value={nome}
         onChange={e => setnome(e.target.value)}
@@ -36,6 +37,7 @@ export default function Log(props) {
         placeholder="User name:"
       />
       <input
+        className="log2"
         name="senha"
         value={senha}
         onChange={e => setsenha(e.target.value)}

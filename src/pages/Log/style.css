@@ -3,8 +3,9 @@
   line-height: 50px;
   padding: 10px;
   border-radius: 20px;
-  height: 190px;
-  width: 220px;
+  width: 100%;
+
+  max-width: 1400px;
   background: orange;
   position: absolute;
   left: 50%;
@@ -12,22 +13,38 @@
   transform: translate(-50%, -50%);
 }
 
-.log input {
+.log1 {
   border-style: none;
   border-radius: 20px;
-  padding: 8px 0;
+  padding: 16px 20px;
   color: orange;
   text-align: center;
+  position: absolute;
+  top: 70px;
+  left: 41%;
+}
+.log2 {
+  border-style: none;
+  border-radius: 20px;
+  padding: 16px 20px;
+  color: orange;
+  text-align: center;
+  position: absolute;
+  top: 120px;
+  left: 41%;
 }
 
 .log button {
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: white;
   color: orange;
   border: 2px solid orange;
-  padding: 8px;
+  padding: 16px;
   font-size: 20px;
   transition-duration: 0.4s;
+  position: absolute;
+  top: 178px;
+  left: 46%;
 }
 
 .log button:hover {
@@ -37,7 +54,10 @@
   color: white;
 }
 
-h2 {
+.log0 {
+  position: absolute;
+  top: 16px;
+  left: 47%;
   font-size: 25px;
   color: white;
 }

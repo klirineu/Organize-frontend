@@ -31,6 +31,7 @@ export default function Form() {
           console.log(error);
         });
     }
+    console.log(newVdiv);
   }
 
   return (
