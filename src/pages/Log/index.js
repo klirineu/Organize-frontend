@@ -3,13 +3,15 @@ import "./style.css";
 import api from "../../services/api";
 
 export default function Log(props) {
-  const [nome, setnome] = useState("");
+  const [nome1, setnome] = useState("");
   const [senha, setsenha] = useState("");
 
   function handleclick(e) {
-    if (nome === "" || senha === "") {
+    if (nome1 === "" || senha === "") {
       return alert("Login inválido");
     }
+
+    const nome = nome1.toLowerCase();
 
     api
       .post("/authenticate", { nome, senha })
@@ -30,7 +32,7 @@ export default function Log(props) {
       <input
         className="log1"
         name="nome"
-        value={nome}
+        value={nome1}
         onChange={e => setnome(e.target.value)}
         id="user"
         type="text"
