@@ -39,11 +39,13 @@ export default function Devquery(props) {
       });
   }
 
-  function mostrar(id) {
+  function mostrar(id, e) {
+    e.preventDefault()
     document.getElementById(id).style.display = "block";
   }
 
-  function esconder(id) {
+  function esconder(id, e) {
+    e.preventDefault()
     document.getElementById(id).style.display = "none";
   }
 
@@ -52,8 +54,7 @@ export default function Devquery(props) {
   }
 
   function editar(devedores) {
-    const token = localStorage.getItem("token");
-    const Auth = `Bearer ${token}`;
+    
     var nome = newnome;
     var Vdiv = newVdiv;
     var parc = newparc;
@@ -87,8 +88,30 @@ export default function Devquery(props) {
         console.log(error);
       });
   }
+  function pago(devedor, e) {
+    api.post(`/devedores/${devedor._id}/counter`, { headers: { Authorization: Auth } }).catch(error => console.log(error)) 
+    const parc = parseFloat(devedor.parc)
+    const counter = parseFloat(devedor.counter)+1
+    
+    if(counter === parc) {  
+      
+      
+      var r = window.confirm("Última parcela paga deseja excluir a dívida ?")
+    
+      if(r === true) {
+        deletDev(devedor._id)
+      }
+    } else if(counter >= parc) {
+      var s = window.confirm("Última parcela já foi paga clique em 'ok' para excluir a dívida")
+      if(s === true) {
+        deletDev(devedor._id)
+      }
+    }
+    console.log(counter, parc)
+  }
   return (
     <div className="container-main-dev">
+      <p id="demo"></p>
       <h2 className="h2">Cadastrar nova divida para {dev}</h2>
       <Form />
       <div className="container-list-dev">
@@ -100,20 +123,22 @@ export default function Devquery(props) {
         <ul>
           {devedores.map(devedor => (
             <li key={devedor._id}>
-              <strong>Nome: {devedor.nome}</strong>
-              <strong>Valor: {devedor.Vdiv}</strong>
-              <strong>Parcelas:{devedor.parc}</strong>
-
-              <button id="myBtn" onClick={() => mostrar(devedor._id)}>
-                Detalhes
-              </button>
-
+              <form>
+                <strong>Nome: {devedor.nome}</strong>
+                <strong>Valor: {devedor.Vdiv}</strong>
+                <strong>Parcelas: {devedor.counter}/{devedor.parc}</strong>
+                <button onClick={e => pago(devedor, e)}>Pago</button>
+                <button  id="myBtn" onClick={e => mostrar(devedor._id, e)}>
+                  Detalhes
+                </button>
+              </form>
+              
               <div id={devedor._id} key={devedor._id} className="modal">
                 <div className="modal-content">
                   <form>
                     <button
                       className="close"
-                      onClick={() => esconder(devedor._id)}
+                      onClick={e => esconder(devedor._id, e)}
                     >
                       <span>&times;</span>
                     </button>
