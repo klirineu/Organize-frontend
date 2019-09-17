@@ -93,18 +93,11 @@ export default function Devquery(props) {
     const parc = parseFloat(devedor.parc)
     const counter = parseFloat(devedor.counter)+1
     
-    if(counter === parc ) {  
-      
-      
-      var r = window.confirm("Última parcela já foi paga clique em 'ok' para excluir a dívida ?")
+    if(counter === parc || counter >= parc) {  
+        
+      alert("Última parcela já foi paga, exclua a divida")
     
-      if(r === true) {
-        deletDev(devedor._id)
-      }
-    }
-
-    
-    
+    }   
   }
   return (
     <div className="container-main-dev">

@@ -8,11 +8,14 @@ export default function Form() {
   const [newVdiv, setnewVdiv] = useState("");
   const [newparc, setnewparc] = useState("");
 
-  function handleclick() {
+  function handleclick(e) {
     const token = localStorage.getItem("token");
     const Auth = `Bearer ${token}`;
 
-    
+    if (newnome === "" || newVdiv === "" || newparc === "") {
+      e.preventDefault();
+      alert("preencha os campos");
+    } else {
       const devedor = {
         nome: newnome,
         Vdiv: newVdiv,
@@ -27,7 +30,7 @@ export default function Form() {
         .catch(error => {
           console.log(error);
         });
-    
+    }
     console.log(newVdiv);
   }
 
