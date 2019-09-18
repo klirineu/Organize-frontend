@@ -89,7 +89,7 @@ export default function Devquery(props) {
       });
   }
   function pago(devedor, e) {
-    api.post(`/devedores/${devedor._id}/counter`, { headers: { Authorization: Auth } }).catch(error => console.log(error)) 
+    api.post(`/devedores/${devedor._id}/counter`).catch(error => console.log(error)) 
     const parc = parseFloat(devedor.parc)
     const counter = parseFloat(devedor.counter)+1
     
