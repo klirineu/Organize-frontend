@@ -54,7 +54,7 @@ export default function Devquery(props) {
   }
 
   function editar(devedores) {
-    
+
     var nome = newnome;
     var Vdiv = newVdiv;
     var parc = newparc;
@@ -89,15 +89,16 @@ export default function Devquery(props) {
       });
   }
   function pago(devedor, e) {
-    api.post(`/devedores/${devedor._id}/counter`).catch(error => console.log(error)) 
+      e.preventDefault()
+    api.post(`/devedores/${devedor._id}/counter`).catch(error => console.log(error))
     const parc = parseFloat(devedor.parc)
     const counter = parseFloat(devedor.counter)+1
-    
-    if(counter === parc || counter >= parc) {  
-        
+
+    if(counter === parc || counter >= parc) {
+
       alert("Última parcela já foi paga, exclua a divida")
-    
-    }   
+
+    }
   }
   return (
     <div className="container-main-dev">
@@ -122,10 +123,10 @@ export default function Devquery(props) {
                   Detalhes
                 </button>
               </form>
-              
+
               <div id={devedor._id} key={devedor._id} className="modal">
                 <div className="modal-content">
-                  <form>
+
                     <button
                       className="close"
                       onClick={e => esconder(devedor._id, e)}
@@ -166,7 +167,7 @@ export default function Devquery(props) {
                     <button type="submit" onClick={() => deletDev(devedor._id)}>
                       Excluir
                     </button>
-                  </form>
+
                 </div>
               </div>
             </li>
